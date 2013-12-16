@@ -25,6 +25,8 @@ int ex(nodeType *p);
 void setupInbuildFunc();
 int yylex(void);
 
+/********Wang's branch*********/
+
 /**
  * lyyerror(char *)
  * yyerror(char *)
