@@ -55,6 +55,10 @@ int ex(nodeType *p) {
     int lblx, lbly, lbl1, lbl2, lblz, lbl3;
     int i,j;
     SymbolType type;
+    char* fun_name;
+    int numofparas;
+    FunNode* func;
+    nodeType* paras;
     int *size;
     if (!p) return 0;
     switch(p->type) {
@@ -128,15 +132,13 @@ int ex(nodeType *p) {
                     pop();
                     break;
                 case CALL:
-                    char* fun_name = p->opr.op[0]->id.i;//get function name;
-                    int numofparas = 0;
-                    FunNode* func;
-                    nodeType* paras;
+                    fun_name = p->opr.op[0]->id.i;//get function name;
+                    numofparas = 0;
                     /*push parameters in stack*/
-                    for(paras = p->opr.op[1];paras != NULL;paras = paras->next){
-                        storeOffsetInIn(paras->name);
-                        if(paras->name->type == typeArr)
-                            testOutofBoundary(paras->name);
+                    for(paras = p->opr.op[1];paras != NULL;paras = paras->para.next){
+                        storeOffsetInIn(paras->para.name);
+                        if(paras->para.name->type == typeArr)
+                            testOutofBoundary(paras->para.name);
                         printf("\tpush\tfp[in]\n");//push para in stack
                         numofparas++;
                     }
